@@ -18,6 +18,8 @@ public class Book {
 	private String author;
 	private String genre;
 	private String branch;
+	// Change rating to int and set default value to 0
+	private double rating = 0.0;
 	public Long getId() {
 		return id;
 	}
@@ -47,6 +49,13 @@ public class Book {
 	}
 	public void setBranch(String branch) {
 		this.branch = branch;
+	}
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
 	}
 	
 	@Override

@@ -1,9 +1,11 @@
 package com.book.recommender.service.repository;
 
+import com.book.recommender.service.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.book.recommender.service.model.User;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long>{
-	User findUserByUserName(String username);
+	Optional<User> findById(Long Id);
+	User findByUsername(String username);
 }
