@@ -1,24 +1,16 @@
 package com.book.recommender.service;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.book.recommender.service.logic.BookService;
-import com.book.recommender.service.model.Book;
-import com.book.recommender.service.model.Recommendation;
-import com.book.recommender.service.model.User;
 import com.book.recommender.service.repository.BookRepository;
-import com.book.recommender.service.repository.RecommendationRepository;
+import com.book.recommender.service.repository.FeedbackRepository;
 import com.book.recommender.service.repository.UserRepository;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages={"com.book.recommender.service.controller"})
+@ComponentScan(basePackages={"com.book.recommender.service.controller","com.book.recommender.service.logic"})
 public class BookRecommendationServiceApplication{
 	
 	@Autowired
@@ -28,7 +20,7 @@ public class BookRecommendationServiceApplication{
     UserRepository userRepository;
 
     @Autowired
-    RecommendationRepository recommendationRepository;
+	FeedbackRepository recommendationRepository;
 
 
 	public static void main(String[] args) {

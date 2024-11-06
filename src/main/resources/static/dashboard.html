@@ -82,8 +82,19 @@
             margin-left: 20px;
             font-weight: bold;
         }
-
-        /*Books CSS*/
+        .filter-button {
+            margin-left: 30px;
+            padding: 8px 30px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .filter-button:hover {
+            background-color: #45a049;
+        }
         .book-list {
             max-width: 600px;
             margin: 20px auto;
@@ -114,7 +125,8 @@
         <select id="profileDropdown" onchange="navigateToPage()">
             <option value="">Profile</option>
             <option value="index.html">Home</option>
-            <option value="logout">Logout</option>
+            <option value="review.html">Submit Review</option>
+            <option value="logout.html">Logout</option>
         </select>
     </div>
 </header>
@@ -142,6 +154,8 @@
             <option value="4">4 Stars</option>
             <option value="5">5 Stars</option>
         </select>
+
+        <button class="filter-button" onclick="fetchBooks()">Filter</button>
     </div>
 
     <div class="book-list" id="bookList">
@@ -162,15 +176,57 @@
 </div>
 
 <script>
-    function navigateToPage() {
-        const selectedValue = document.getElementById('profileDropdown').value;
+    async function fetchBooks() {
+        const searchQuery = document.getElementById('searchBox').value.trim();
+        const type = document.getElementById('type').value;
+        const branchGenre = document.getElementById('branchGenre').value;
+        const rating = document.getElementById('rating').value;
 
-        if (selectedValue === 'index.html') {
-            window.location.href = 'index.html';
-        } else if (selectedValue === 'logout') {
-            // Handle logout logic here (e.g., clear session, redirect to login page)
-            alert('Logging out...'); // Placeholder for logout logic
+        let apiUrl = 'http://localhost:8080/api/books?';
+
+        if (searchQuery) {
+            apiUrl += `search=${encodeURIComponent(searchQuery)}&`;
         }
+        if (type) {
+            apiUrl += `type=${type}&`;
+        }
+        if (branchGenre) {
+            apiUrl += `branchGenre=${branchGenre}&`;
+        }
+        if (rating) {
+            apiUrl += `rating=${rating}`;
+        }
+
+        console.log(apiUrl);
+
+        try {
+            const response = await fetch(apiUrl);
+            if (response.ok) {
+                const books = await response.json();
+                console.log(books);
+                populateBookList(books);
+            } else {
+                console.error('Failed to fetch books');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function populateBookList(books) {
+        const bookListBody = document.getElementById('bookListBody');
+        bookListBody.innerHTML = '';
+
+        books.forEach(book => {
+            const row = `
+                <tr>
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>${book.rating}</td>
+                </tr>
+            `;
+            bookListBody.insertAdjacentHTML('beforeend', row);
+        });
     }
 
     function updateBranchGenreOptions() {
@@ -196,6 +252,18 @@
             branchGenreDropdown.style.display = 'inline';
         } else {
             branchGenreDropdown.style.display = 'none';
+        }
+    }
+
+    function navigateToPage() {
+        const selectedValue = document.getElementById('profileDropdown').value;
+
+        if (selectedValue === 'index.html') {
+            window.location.href = 'index.html';
+        } else if (selectedValue === 'logout') {
+            // Handle logout logic here (e.g., clear session, redirect to login page)
+            alert('Logging out...'); // Placeholder for logout logic
+            window.location.href = 'index.html';
         }
     }
 </script>
