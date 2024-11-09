@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <!-- Include Font Awesome for eye icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <style>
         /* Basic styling for layout and form */
         body {
@@ -81,6 +84,19 @@
         .links a:hover {
             text-decoration: underline;
         }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-container .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 30%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -100,7 +116,10 @@
         <input type="text" id="username" name="username" placeholder="Enter your username" required>
 
         <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+        <div class="password-container">
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <i class="fas fa-eye-slash eye-icon" id="eye-icon"></i> <!-- Eye icon to toggle password visibility -->
+        </div>
 
         <input type="submit" value="Login">
     </form>
@@ -111,13 +130,34 @@
     </div>
 </div>
 
-
 <script>
-        document.getElementById('login-form').addEventListener('submit', async function(event) {
+    // Toggle password visibility
+    const eyeIcon = document.getElementById('eye-icon');
+    const passwordField = document.getElementById('password');
+
+    eyeIcon.addEventListener('click', function () {
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text'; // Show password
+            eyeIcon.classList.remove('fa-eye-slash');
+            eyeIcon.classList.add('fa-eye'); // Change icon to "eye-slash"
+        } else {
+            passwordField.type = 'password'; // Hide password
+            eyeIcon.classList.remove('fa-eye');
+            eyeIcon.classList.add('fa-eye-slash'); // Change icon to "eye"
+        }
+    });
+
+    document.getElementById('login-form').addEventListener('submit', async function(event) {
         event.preventDefault(); // Prevent the default form submission
 
         const username = document.getElementById('username').value.trim();
         const password = document.getElementById('password').value.trim();
+
+        // Check if the user is an admin
+        if (username === "admin" && password === "admin123") {
+            window.location.href = 'admin.html'; // Redirect admin to admin page
+            return;
+        }
 
         const user = { username, password };
 
@@ -145,7 +185,6 @@
             document.getElementById('error-message').textContent = 'An error occurred. Please try again.';
         }
     });
-
 </script>
 
 </body>

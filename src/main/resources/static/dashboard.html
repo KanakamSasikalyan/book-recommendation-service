@@ -124,9 +124,10 @@
     <div class="dropdown">
         <select id="profileDropdown" onchange="navigateToPage()">
             <option value="">Profile</option>
-            <option value="index.html">Home</option>
-            <option value="review.html">Submit Review</option>
-            <option value="logout.html">Logout</option>
+            <option value="home">Home</option>
+            <option value="review">Submit Review</option>
+            <option value="blog">Blog& Reviews</option>
+            <option value="logout">Logout</option>
         </select>
     </div>
 </header>
@@ -258,12 +259,19 @@
     function navigateToPage() {
         const selectedValue = document.getElementById('profileDropdown').value;
 
-        if (selectedValue === 'index.html') {
+        if (selectedValue === 'home') {
             window.location.href = 'index.html';
-        } else if (selectedValue === 'logout') {
+        }else if (selectedValue === 'review') {
             // Handle logout logic here (e.g., clear session, redirect to login page)
-            alert('Logging out...'); // Placeholder for logout logic
-            window.location.href = 'index.html';
+            //alert('Redirecting to feedback page...'); // Placeholder for logout logic
+            window.location.href = 'review.html';
+        } else if (selectedValue === 'blog') {
+            // Handle logout logic here (e.g., clear session, redirect to login page)
+            //alert('Redirecting to blog page...'); // Placeholder for logout logic
+            window.location.href = 'blog.html';
+        }else if (selectedValue === 'logout') {
+            // Handle logout logic here (e.g., clear session, redirect to login page)
+            window.location.href = 'login.html';
         }
     }
 </script>

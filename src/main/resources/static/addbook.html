@@ -55,6 +55,13 @@
             font-size: 14px;
             color: green;
         }
+        #homeButton {
+            background-color: #28a745;
+            margin-top: 20px;
+        }
+        #homeButton:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
@@ -81,10 +88,13 @@
 
     <!-- Success/Failure message -->
     <div class="message" id="message"></div>
+
+    <!-- Home Button -->
+    <button id="homeButton" onclick="window.location.href='admin.html';">Go to Admin Home</button>
 </div>
 
 <script>
-        document.getElementById('addBookForm').addEventListener('submit', function(event) {
+            document.getElementById('addBookForm').addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent form from submitting normally
 
         const title = document.getElementById('title').value;
@@ -99,7 +109,7 @@
             branch: branch
         };
 
-        fetch('/api/books/addBook', {
+        fetch('/api/addBook', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -107,21 +117,20 @@
             body: JSON.stringify(bookData),
         })
         .then(response => {
-            if (!response.ok) { // Ensure we only continue if the response is OK
-                throw new Error('Network response was not ok');
+            if (response.status === 200 || response.status === 201) { // Check for 200 or 201 status
+                document.getElementById('message').textContent = 'Book added successfully!';
+                document.getElementById('addBookForm').reset(); // Clear form after successful addition
+                return;
+            } else {
+                return response.text().then(text => { throw new Error(`Server error: ${response.status} - ${text}`); });
             }
-            return response.json(); // Parse response as JSON
-        })
-        .then(data => {
-            console.log("Data returned from API:", data);
-            document.getElementById('message').textContent = 'Book added successfully!';
-            document.getElementById('addBookForm').reset(); // Reset the form after successful addition
         })
         .catch(error => {
-            console.error('Error adding book:', error); // Log the specific error
-            document.getElementById('message').textContent = 'Error adding book.';
+            console.error('Error adding book:', error.message); // Log the specific error message
+            document.getElementById('message').textContent = `Error adding book: ${error.message}`; // Display detailed error message
         });
     });
+
 </script>
 
 </body>

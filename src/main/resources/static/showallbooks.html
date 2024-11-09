@@ -4,66 +4,81 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View All Books</title>
+    <!-- Link to Font Awesome for book icon -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            color: #333;
         }
         .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: 50px auto;
+            width: 95%;
+            max-width: 900px;
+            margin: 30px auto;
             background-color: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
         h2 {
             text-align: center;
-            margin-bottom: 20px;
+            font-size: 1.5em;
+            margin-bottom: 15px;
         }
         .book-item {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             border: 1px solid #ddd;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 8px;
+            margin-bottom: 12px;
             border-radius: 5px;
-            background-color: #fafafa;
+            background-color: #f9f9f9;
         }
         .book-logo {
-            width: 50px; /* Width of the logo box */
-            height: 70px; /* Height of the logo box */
-            background-color: #007BFF; /* Logo color */
+            width: 40px; /* Size of the icon box */
+            height: 50px;
+            background-color: #007BFF;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-right: 15px;
+            margin-right: 12px;
             font-weight: bold;
             border-radius: 3px;
             font-size: 1.2em;
         }
+        .book-logo i {
+            font-size: 1.5em; /* Larger size for the icon */
+        }
         .book-details {
-            flex-grow: 1; /* Allows this to take up the remaining space */
+            flex-grow: 1;
+            font-size: 0.9em;
+            line-height: 1.4;
         }
         .book-details h3 {
             margin: 0;
-            font-size: 1.2em;
+            font-size: 1.1em;
+            color: #007BFF;
+        }
+        .book-details p {
+            margin: 4px 0;
         }
         .back-button {
             text-align: center;
             margin-top: 20px;
         }
         .back-button button {
-            padding: 10px 20px;
+            padding: 8px 18px;
             background-color: #007BFF;
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
+            font-size: 0.9em;
         }
         .back-button button:hover {
             background-color: #0056b3;
@@ -100,14 +115,17 @@
                     const bookItem = document.createElement('div');
                     bookItem.className = 'book-item';
 
+                    // Add the Font Awesome book icon and first letter
                     bookItem.innerHTML = `
-                        <div class="book-logo">${book.title.charAt(0)}</div>
+                        <div class="book-logo">
+                            <i class="fas fa-book"></i><span style="position: absolute; font-size: 0.6em;">${book.title.charAt(0)}</span>
+                        </div>
                         <div class="book-details">
                             <h3>${book.title}</h3>
-                            <p>Author: ${book.author}</p>
-                            <p>Genre: ${book.genre}</p>
-                            <p>Branch: ${book.branch}</p>
-                            <p>Rating: ${book.rating}</p>
+                            <p><strong>Author:</strong> ${book.author}</p>
+                            <p><strong>Genre:</strong> ${book.genre}</p>
+                            <p><strong>Branch:</strong> ${book.branch}</p>
+                            <p><strong>Rating:</strong> ${book.rating}</p>
                         </div>
                     `;
                     booksContainer.appendChild(bookItem);

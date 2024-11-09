@@ -189,11 +189,39 @@
         })
         .then(message => {
             document.getElementById('error-message').textContent = message; // Display success message
+            //sendWelcomeEmail(data.email); // Send welcome email after successful signup
+            // Clear the form after successful signup
+            document.getElementById('signup-form').reset();
         })
         .catch(error => {
             document.getElementById('error-message').textContent = error.message; // Display error message
         });
     });
+
+    /*function sendWelcomeEmail(userEmail) {
+    emailjs.init('NLzPREVL3OH9dtCe9'); // Initialize with your EmailJS User ID
+
+    const templateParams = {
+        to_email: userEmail,
+        subject: 'Welcome to Book Recommender Application!',
+        message: `
+            <p>Hello,</p>
+            <p>Thank you for signing up for the Book Recommender Application!</p>
+            <p>We are excited to have you on board! We believe that books have the power to change lives, and we hope you find some truly inspiring reads here.</p>
+            <p>Get ready to explore a world of recommendations, curated just for you!</p>
+            <p>Happy reading!</p>
+            <p>- The Book Recommender Team</p>
+        `
+    };
+
+    // Send the email using EmailJS service
+    emailjs.send('your_service_id', 'your_template_id', templateParams)
+        .then(function(response) {
+            console.log('Email sent successfully:', response);
+        }, function(error) {
+            console.error('Error sending email:', error);
+        });
+    }*/
 </script>
 
 </body>

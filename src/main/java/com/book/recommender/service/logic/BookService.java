@@ -209,6 +209,7 @@ import com.book.recommender.service.model.Book;
 import com.book.recommender.service.model.Feedback;
 import com.book.recommender.service.repository.BookRepository;
 import com.book.recommender.service.repository.FeedbackRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
@@ -216,6 +217,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -225,6 +227,10 @@ public class BookService {
 
     @Autowired
     private FeedbackRepository feedbackRepository;
+
+    public List<Book> findBooksByAuthor(String author) {
+        return bookRepository.findByAuthor(author);
+    }
 
     public List<Book> findBooks(String search, String branch, String genre, Integer rating) {
         Specification<Book> spec = Specification.where(BookSpecification.hasTitleOrAuthor(search))
@@ -250,8 +256,22 @@ public class BookService {
         feedback.setTitle(title);
         feedback.setAuthor(author);
         feedback.setRating(rating);
-        feedback.setDescription(description);
+        StringBuilder sb = new StringBuilder();
+        sb.append("Comment added by : ");
+        sb.append(description);
+        String desc = sb.toString();
+        feedback.setDescription(desc);
         feedbackRepository.save(feedback);
+    }
+
+    @Transactional
+    public boolean deleteBookByHash(String bookHash) {
+        Optional<Book> bookOptional = bookRepository.findByBookHash(bookHash);
+        if (bookOptional.isPresent()) {
+            bookRepository.delete(bookOptional.get());
+            return true;  // Successfully deleted
+        }
+        return false; // Book not found
     }
 }
 
