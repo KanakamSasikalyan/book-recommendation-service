@@ -232,14 +232,25 @@ public class BookService {
         return bookRepository.findByAuthor(author);
     }
 
-    public List<Book> findBooks(String search, String branch, String genre, Integer rating) {
-        Specification<Book> spec = Specification.where(BookSpecification.hasTitleOrAuthor(search))
-                .and(BookSpecification.hasBranch(branch))
-                .and(BookSpecification.hasGenre(genre))
-                .and(BookSpecification.hasRating(rating));
+    public List<Book> findBooks(String search, String type, String branchGenre, Integer rating) {
 
-        // Sort by rating in descending order
-        return bookRepository.findAll(spec, Sort.by(Sort.Direction.DESC, "rating"));
+        if(search != null){
+            Specification<Book> spec = Specification.where(BookSpecification.hasTitleOrAuthor(search));
+            // Sort by rating in descending order
+            return bookRepository.findAll(spec);
+        }else if (type.equalsIgnoreCase("branch")){
+            Specification<Book> spec = Specification.where(BookSpecification.hasTitleOrAuthor(search))
+                    .and(BookSpecification.hasBranch(branchGenre))
+                    .and(BookSpecification.hasRating(rating));
+            // Sort by rating in descending order
+            return bookRepository.findAll(spec, Sort.by(Sort.Direction.DESC, "rating"));
+        }else {
+            Specification<Book> spec = Specification.where(BookSpecification.hasTitleOrAuthor(search))
+                    .and(BookSpecification.hasGenre(branchGenre))
+                    .and(BookSpecification.hasRating(rating));
+            // Sort by rating in descending order
+            return bookRepository.findAll(spec, Sort.by(Sort.Direction.DESC, "rating"));
+        }
     }
 
     // Method to update rating and store the feedback

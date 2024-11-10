@@ -23,10 +23,10 @@ public class BookController {
     @GetMapping("api/books")
     public List<Book> getBooks(
             @RequestParam(required = false) String search,
-            @RequestParam(required = false) String branch,
-            @RequestParam(required = false) String genre,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false) String branchGenre,
             @RequestParam(required = false) Integer rating) {
-        return bookService.findBooks(search, branch, genre, rating);
+        return bookService.findBooks(search, type, branchGenre, rating);
     }
 
     @PostMapping("api/updateRating")
