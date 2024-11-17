@@ -68,6 +68,27 @@
             text-align: center;
             margin-top: 10px;
         }
+
+        .back{
+            margin-top: 5px;
+            padding: 12px 20px;
+            background-color: #4CAF50;
+            text-align:center;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .back a{
+            color: white;
+            text-decoration: none;
+        }
+
+        .back a:hover{
+            background-color: #45a049;
+        }
     </style>
     <script>
         // Function to handle the form submission
@@ -133,6 +154,9 @@
         <textarea id="description" name="description" placeholder="Please add your @username first, enter your review here..." required></textarea><br><br>
 
         <button type="submit">Submit Rating</button>
+        <div class="back">
+            <a href="dashboard.html">Go Back</a>
+        </div>
     </form>
 
     <div id="error-message" class="error-message"></div>
