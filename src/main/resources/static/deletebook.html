@@ -139,6 +139,10 @@
             const response = await fetch(`/api/book/filterByAuthor?author=${author}`);
             const books = await response.json();
 
+            if (books.length === 0) {
+                alert("No books found.");
+            }
+
             const tableBody = document.getElementById('books-table-body');
             tableBody.innerHTML = ''; // Clear previous results
 
@@ -157,8 +161,8 @@
 
             document.getElementById('books-table').style.display = books.length ? 'table' : 'none';
             document.querySelector('.delete-section').style.display = books.length ? 'block' : 'none';
-
         } catch (error) {
+            alert("No Books Found!");
             console.error('Error fetching books:', error);
         }
     });

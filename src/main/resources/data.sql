@@ -183,7 +183,6 @@ VALUES ('A Thousand Splendid Suns', 'Khaled Hosseini', 'Historical', 'Political 
 
 INSERT INTO books_table (title, author, genre, branch, rating, book_hash)
 VALUES ('Quiet', 'Susan Cain', 'Psychology', 'Psychology', 4.5, 'B077Y082');
-*/
 
 -- Secondly added!
 INSERT INTO books_table (title, author, genre, branch, rating, book_hash)
@@ -409,3 +408,4 @@ INSERT INTO books_table (title, author, genre, branch, rating, book_hash) VALUES
 INSERT INTO books_table (title, author, genre, branch, rating, book_hash) VALUES ('Ethics in Journalism', 'George Orwell', 'Non-Fiction', 'Journalism', 4.8, 'B198C198');
 INSERT INTO books_table (title, author, genre, branch, rating, book_hash) VALUES ('The World of Sociology', 'Émile Durkheim', 'Education', 'Sociology', 4.5, 'B199C199');
 INSERT INTO books_table (title, author, genre, branch, rating, book_hash) VALUES ('Anthropological Insights', 'Margaret Mead', 'Science', 'Anthropology', 4.7, 'B200C200');
+*/

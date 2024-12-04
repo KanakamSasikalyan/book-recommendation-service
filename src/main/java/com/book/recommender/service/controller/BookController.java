@@ -56,10 +56,11 @@ public class BookController {
 
     // Endpoint to filter books by author
     @GetMapping("api/book/filterByAuthor")
-    public ResponseEntity<List<Book>> filterBooksByAuthor(@RequestParam String author) {
+    public ResponseEntity<?> filterBooksByAuthor(@RequestParam String author) {
         List<Book> books = bookService.findBooksByAuthor(author);
         if (books.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("{\"message\":\"Book Not Found\"}");
         }
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
